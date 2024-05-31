@@ -7,9 +7,9 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { auth } from "../utils/firebase";
-import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/redux/userSlice";
+import { USER_AVATAR } from "../utils/constants";
 
 const Login = () => {
   const [isSignInForm, setSignInForm] = useState(true);
@@ -21,8 +21,6 @@ const Login = () => {
   const name = useRef(null);
   const email = useRef(null);
   const password = useRef(null);
-
-  const navigate = useNavigate();
 
   const handleButtonClick = () => {
     //Validate the Form Data
@@ -44,16 +42,20 @@ const Login = () => {
         .then((userCredential) => {
           // Signed up
           const user = userCredential.user;
-          console.log(user);
           updateProfile(user, {
             displayName: name.current.value,
+            photoURL: USER_AVATAR,
           })
             .then(() => {
-              const { uid, email, displayName } = auth.currentUser;
+              const { uid, email, displayName, photoURL } = auth.currentUser;
               dispatch(
-                addUser({ uid: uid, email: email, displayName: displayName })
+                addUser({
+                  uid: uid,
+                  email: email,
+                  displayName: displayName,
+                  photoURL: photoURL,
+                })
               );
-              navigate("/home");
             })
             .catch((error) => {
               setErrorMessage(error.message);
@@ -74,8 +76,6 @@ const Login = () => {
         .then((userCredential) => {
           // Signed in
           const user = userCredential.user;
-          console.log(user);
-          navigate("/home");
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -90,13 +90,6 @@ const Login = () => {
   };
   return (
     <div>
-      {/* <style>
-        {`
-          html, body {
-            overflow: hidden;
-          }
-        `}
-      </style> */}
       <Header />
       <div className="absolute">
         <img
