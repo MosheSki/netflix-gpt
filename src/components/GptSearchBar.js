@@ -25,8 +25,6 @@ const GptSearchBar = () => {
   };
 
   const handleGptSearchClick = async () => {
-    console.log(searchText.current.value);
-
     const gptQuery =
       "Act as a movie recommendation system and suggest some movies for the query:" +
       searchText.current.value +
@@ -36,8 +34,6 @@ const GptSearchBar = () => {
       messages: [{ role: "user", content: gptQuery }],
       model: "gpt-3.5-turbo",
     });
-
-    console.log(gptResults.choices[0].message.content);
 
     const gptMovieResults = gptResults.choices[0].message.content.split(",");
 
@@ -56,7 +52,7 @@ const GptSearchBar = () => {
   };
 
   return (
-    <div className="pt-[45%] md:pt-[3%] flex justify-center">
+    <div className="pt-[45%] md:pt-[5%] flex justify-center">
       <form
         className="w-full bg-black md:w-1/2 grid grid-cols-12"
         onSubmit={(e) => e.preventDefault()}
