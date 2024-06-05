@@ -62,7 +62,7 @@ const Header = () => {
     <div className="absolute w-full px-8 py-2 bg-gradient-to-b from-black z-10 flex flex-col md:flex-row justify-between">
       <img className="w-44 mx-auto md:mx-0" src={LOGO} alt="logo" />
       {user && (
-        <div className="flex p-2 justify-between">
+        <div className="flex md:p-2 justify-between ml-[27%] my-[-4%] md:my-0">
           {showGptSearch && (
             <select
               className="p-2 bg-black text-white m-2"
@@ -86,7 +86,11 @@ const Header = () => {
             alt="usericon"
             src={user?.photoURL}
           />
-          <button className="font-bold text-white p-2" onClick={handleSignOut}>
+
+          <button
+            className="font-bold text-white md:p-3 md:top-0 md:right-0 md:relative absolute top-3 right-8"
+            onClick={handleSignOut}
+          >
             Sign Out
           </button>
         </div>

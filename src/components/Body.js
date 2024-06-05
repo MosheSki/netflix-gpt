@@ -1,16 +1,28 @@
 import Home from "./Home";
 import Login from "./Login";
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import {
+  Navigate,
+  RouterProvider,
+  createBrowserRouter,
+} from "react-router-dom";
+import WatchPage from "./WatchPage";
+import { useSelector } from "react-redux";
 
 const Body = () => {
+  const user = useSelector((store) => store.user);
+
   const appRouter = createBrowserRouter([
     {
       path: "/",
-      element: <Login />,
+      element: !user ? <Login /> : <Navigate to="home" />,
     },
     {
       path: "/home",
-      element: <Home />,
+      element: user ? <Home /> : <Navigate to="/" />,
+    },
+    {
+      path: "/watch/:movieId",
+      element: user ? <WatchPage /> : <Navigate to="/" />,
     },
   ]);
 

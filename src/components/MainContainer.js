@@ -5,23 +5,26 @@ import { useEffect, useState } from "react";
 
 const MainContainer = () => {
   const movies = useSelector((store) => store.movies?.nowPlayingMovies);
-  const [mainMovie, setMainMovie] = useState(null);
+  if (!movies) return;
 
-  useEffect(() => {
-    if (movies && movies.length > 0) {
-      // Generate a random index and select a movie
-      const randomIndex = Math.floor(Math.random() * movies.length);
-      setMainMovie(movies[randomIndex]);
-    }
-  }, [movies]);
+  // const [mainMovie, setMainMovie] = useState(null);
 
-  if (!mainMovie) return null;
+  // useEffect(() => {
+  //   if (movies && movies.length > 0) {
+  //     const randomIndex = Math.floor(Math.random() * movies.length);
+  //     setMainMovie(movies[randomIndex]);
+  //   }
+  // }, [movies]);
+
+  // if (!mainMovie) return null;
+
+  const mainMovie = movies[1];
 
   const { original_title, overview, id } = mainMovie;
 
   return (
     <div className="pt-[30%] bg-black md:pt-0 ">
-      <VideoTitle title={original_title} overview={overview} />
+      <VideoTitle title={original_title} overview={overview} id={id} />
       <VideoBackground movieId={id} />
     </div>
   );

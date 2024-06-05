@@ -6,6 +6,7 @@ import GptSearchPage from "./GptSearchPage";
 import Header from "./Header";
 import MainContainer from "./MainContainer";
 import SecondContainer from "./SecondContainer";
+import useUpcomingMovies from "../hooks/useUpcomingMovies";
 
 const Home = () => {
   const gptSearchView = useSelector((store) => store.gpt.showGptSearch);
@@ -13,6 +14,7 @@ const Home = () => {
   useNowPlayingMovies();
   usePopularMovies();
   useTopRatedMovies();
+  useUpcomingMovies();
   return (
     <div>
       <Header />
